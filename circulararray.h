@@ -74,7 +74,7 @@ bool CircularArray<T>::is_full()
 template <class T>
 bool CircularArray<T>::is_empty()
 {
-    return (back == front == -1);
+    return (back == -1 && front == -1);
 }
 
 template <class T>
@@ -95,7 +95,9 @@ template <class T>
 string CircularArray<T>::to_string(string sep)
 {
     string result = ""; 
-    for (int i = 0; i < size(); i++)
+    int n = size();
+    int j = 0;
+    for (int i = front; j < n; i = next(i), j++)
         result += std::to_string((*this)[i]) + sep;
     return result;    
 }
