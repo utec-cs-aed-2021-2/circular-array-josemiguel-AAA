@@ -7,19 +7,15 @@ class StackArray : public CircularArray<T> {
 
         StackArray(int size) : CircularArray<T>(size) {}
         
-        void push(T value) {
-            push_back(value);
-        }
+        void push(T value) : push_back(value) {}
 
+        T pop() : pop_back() {}
+
+        /*
         T top() {
             return array[back];
         }
+        */
 
-        T pop() {
-            return pop_back();
-        }
-
-        ~StackList() {
-            delete[] array;
-        }
+        ~StackArray() : ~CircularArray<T>() {}
 };

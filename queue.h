@@ -7,19 +7,15 @@ class QueueArray : public CircularArray<T> {
 
         QueueArray(int size) : CircularArray<T>(size) {}
         
-        void enqueue(T value) {
-            push_back(value);          
-        }
+        void enqueue(T value) : push_back(value) {}
 
-        T dequeue() {
-            return pop_front();
-        }
+        T dequeue() : pop_front() {}
 
+        /*
         T front() {
             return array[front];
         }
+        */
 
-        ~QueueList() {
-            delete[] array;
-        }
+        ~QueueArray() : ~CircularArray<T>() {}
 };

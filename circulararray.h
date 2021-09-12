@@ -210,21 +210,6 @@ T& CircularArray<T>::operator[](int a)
 template <class T>
 void CircularArray<T>::sort()
 {
-    /*
-    int n = size();
-    int p = next(back);
-    for (int gap = n/2; gap > 0; gap /= 2)
-    {
-        for (int i = ((gap + front)%capacity); i != p; i = next(i))
-        {
-            int temp = array[i];
-            int j;           
-            for (j = i; j && array[((j - gap + capacity)%capacity)] > temp; j = ((j - gap + capacity)%capacity))
-                array[j] = array[((j - gap + capacity)%capacity)];
-            array[j] = temp;
-        }
-    }
-    */
     int n = size();
     int k;
     int l;
