@@ -147,7 +147,19 @@ void CircularArray<T>::push_back(T data)
 template <class T>
 void CircularArray<T>::insert(T data, int pos)
 {
-
+    if (is_empty())
+    {
+        back = 0;
+        front = 0;
+    }
+    if (is_full())
+    {
+        throw "Error";
+    }
+    else if (pos < capacity)
+    {
+        array[pos] = data;
+    }  
 }
 
 template <class T>
