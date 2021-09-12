@@ -234,6 +234,20 @@ void CircularArray<T>::sort()
 template <class T>
 bool CircularArray<T>::is_sorted()
 {
+    int n = size();
+    if (n == 0 || n == 1)
+    {
+        return true;
+    }
+    int l;
+    for (int i = next(front), l = 1; l < n; i = next(i), l++)
+    {
+        if (array[prev(i)] > array[i])
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 template <class T>
