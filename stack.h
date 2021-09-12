@@ -5,6 +5,8 @@ class StackArray : public CircularArray<T> {
     public:
         StackArray() : CircularArray<T>() {};
 
+        StackArray(int size) : CircularArray<T>(size) {}
+        
         void push(T value) {
             push_back(value);
         }

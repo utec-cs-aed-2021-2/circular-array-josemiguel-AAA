@@ -5,6 +5,8 @@ class QueueArray : public CircularArray<T> {
     public:
         QueueArray() : CircularArray<T>() {}
 
+        QueueArray(int size) : CircularArray<T>(size) {}
+        
         void enqueue(T value) {
             push_back(value);          
         }
