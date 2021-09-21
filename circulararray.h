@@ -201,6 +201,16 @@ void CircularArray<T>::clear()
     array = new T[capacity];
 }
 
+// TA: Para el operador corchetes, debes tener encuenta dónde está el front y el back, no es lo mismo con el front en 0 que con el front en 1.
+// EJEMPLO:
+//   0    1   2   3   4
+// front     back
+// Aquí es correcto array[2]
+
+//   0    1   2   3   4
+//      front    back
+// Aquí lo correcto para el índice 2 sería array[3]
+
 template <class T>
 T& CircularArray<T>::operator[](int a)
 {
