@@ -66,10 +66,210 @@ int CircularArray<T>::next(int index)
 }
 
 template <class T>
+bool CircularArray<T>::is_full()
+{
+    return next(back) == front;
+}
+
+template <class T>
+bool CircularArray<T>::is_empty()
+{
+    return (back == -1 && front == -1);
+}
+
+template <class T>
+int CircularArray<T>::size()
+{
+    if (is_empty()) return 0;
+    if (is_full()) return capacity;
+    int itr = front; 
+    int n = 1;
+    while (array[next(itr)] != 0)
+    {
+        n += 1;
+    }
+    return n;
+}
+
+template <class T>
 string CircularArray<T>::to_string(string sep)
 {
     string result = ""; 
-    for (int i = 0; i < size(); i++)
+    int n = size();
+    int j = 0;
+    for (int i = front; j < n; i = next(i), j++)
         result += std::to_string((*this)[i]) + sep;
     return result;    
+}
+
+template <class T>
+void CircularArray<T>::push_front(T data)
+{
+    if (is_full())
+    {
+        throw "Error";    
+    }
+    else
+    {
+        if (front == -1)
+        {
+            front = back = 0;
+        }
+        else
+        {
+            front = prev(front);
+        }
+        array[front] = data;
+    }
+}
+
+template <class T>
+void CircularArray<T>::push_back(T data)
+{
+    if (is_full())
+    {
+        throw "Error";
+    }
+    else
+    {
+        if (back == -1)
+        {
+            back = front = 0;
+        }
+        else
+        {
+            back = next(back);
+        }
+        array[back] = data; 
+    }     
+}
+
+template <class T>
+void CircularArray<T>::insert(T data, int pos)
+{
+    if (is_empty())
+    {
+        back = 0;
+        front = 0;
+    }
+    if (is_full())
+    {
+        throw "Error";
+    }
+    else if (pos < capacity)
+    {
+        array[pos] = data;
+    }  
+}
+
+template <class T>
+T CircularArray<T>::pop_front()
+{
+    if (is_empty())
+    {
+        throw "Error";
+    }
+    else
+    {
+        T temp = array[front];
+        array[front] = 0;
+        front = next(front);  
+        return temp;
+    }
+}
+
+template <class T>
+T CircularArray<T>::pop_back()
+{
+    if (is_empty())
+    {
+        throw "Error";
+    }
+    else
+    {
+        T temp = array[back];
+        array[back] = 0;
+        back = prev(back);  
+        return temp;
+    }
+}
+
+template <class T>
+void CircularArray<T>::clear()
+{
+    delete[] array;
+    array = new T[capacity];
+}
+
+// TA: Para el operador corchetes, debes tener encuenta dónde está el front y el back, no es lo mismo con el front en 0 que con el front en 1.
+// EJEMPLO:
+//   0    1   2   3   4
+// front     back
+// Aquí es correcto array[2]
+
+//   0    1   2   3   4
+//      front    back
+// Aquí lo correcto para el índice 2 sería array[3]
+
+template <class T>
+T& CircularArray<T>::operator[](int a)
+{
+    return array[a];
+}
+
+template <class T>
+void CircularArray<T>::sort()
+{
+    int n = size();
+    int k;
+    int l;
+    int j; 
+    for (k = 0; k < n-1; k++)
+    {
+        for (j = front, l = 0; l < n-k-1; j = next(j), l++)
+        {
+            if (array[j] > array[next(j)]) 
+            {
+                T temp = array[j]; 
+                array[j] = array[next(j)]; 
+                array[next(j)] = temp; 
+            }
+        }
+    }
+}
+
+template <class T>
+bool CircularArray<T>::is_sorted()
+{
+    int n = size();
+    if (n == 0 || n == 1)
+    {
+        return true;
+    }
+    int l;
+    for (int i = next(front), l = 1; l < n; i = next(i), l++)
+    {
+        if (array[prev(i)] > array[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+template <class T>
+void CircularArray<T>::reverse()
+{
+    int i;
+    int j = back;
+    for (i = front; i != j; i = next(i))
+    {
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+        if (prev(j) != i)
+        {
+            j = prev(j);
+        }
+    }    
 }
